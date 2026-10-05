@@ -1,0 +1,25 @@
+{
+  "preferGift": "BEAR",
+  "chainAfterClaim": true,
+  "autoTask": true,
+  "autoSpin": true,
+  "skipJoinTasks": true,
+  "skipAdTasks": false,
+  "parallel": 1,
+  "delayBetweenAccountsMs": 3000,
+  "jitterSeconds": 25,
+  "minCheckSeconds": 45,
+  "taskCooldownHours": 0,
+  "ads": {
+    "ads_shown": 1,
+    "ads_clicked": 1,
+    "ads_offered": 1
+  },
+  "utcOffsetHours": 3,
+  "gamesPerLoop": 3,
+  "giveaway": {
+    "enabled": true,
+    "maxAdsPerRun": 30,
+    "note": "🎁 Telegram Premium giveaway — check tools/giveaway.js"
+  }
+}

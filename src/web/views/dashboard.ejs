@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title><%= title %></title>
+  <!-- Telegram WebApp JS SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Bootstrap 5 & FontAwesome 6 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- STICKY TOP APP BAR -->
+  <header class="top-nav px-3 px-md-4 py-3">
+    <div class="container-fluid d-flex justify-content-between align-items-center p-0" style="max-width: 1400px;">
+      
+      <!-- Left side: Hamburger Trigger & Brand -->
+      <div class="d-flex align-items-center gap-3">
+        <!-- Modern Hamburger Button -->
+        <button class="btn-hamburger" id="hamburgerBtn" type="button" aria-label="Toggle Navigation Drawer">
+          <i class="fa-solid fa-bars-staggered"></i>
+        </button>
+
+        <div class="d-flex align-items-center gap-2">
+          <div class="d-none d-sm-flex align-items-center justify-content-center rounded-3 p-2" style="background: linear-gradient(135deg, rgba(56,189,248,0.2), rgba(99,102,241,0.2)); border: 1px solid rgba(56,189,248,0.35);">
+            <i class="fa-solid fa-gem text-info fs-5"></i>
+          </div>
+          <div>
+            <div class="d-flex align-items-center gap-2">
+              <span class="fw-bold fs-5 text-white">All-Mining Pro</span>
+              <span class="miner-badge badge-atf d-none d-sm-inline">v5.2-SECURE</span>
+            </div>
+            <small class="text-secondary d-block" id="appHeaderSubtitle" style="font-size: 0.78rem;">Autonomous Multi-Chain Mining Engine</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right side: User Badge & Action -->
+      <div class="d-flex align-items-center gap-2">
+        <div id="userBadge" class="d-none miner-badge badge-leaf d-flex align-items-center gap-2 py-2 px-3">
+          <i class="fa-solid fa-circle-user fs-6"></i>
+          <span id="userNameDisplay">User</span>
+        </div>
+        <button class="btn-modern-primary d-flex align-items-center gap-2" onclick="loadLiveMiningStatus()">
+          <i class="fa-solid fa-arrows-rotate"></i>
+          <span class="d-none d-md-inline">Refresh Status</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- OFFCANVAS SLIDING DRAWER -->
+  <div class="offcanvas offcanvas-start glass-drawer" tabindex="-1" id="appDrawer" aria-labelledby="appDrawerLabel">
+    <div class="drawer-header">
+      <div class="d-flex align-items-center gap-2">
+        <i class="fa-solid fa-cubes-stacked text-info fs-5"></i>
+        <span class="fw-bold text-white fs-6" id="appDrawerLabel">Mining Navigation</span>
+      </div>
+      <!-- Explicit close / hide button -->
+      <button type="button" class="btn-drawer-close" data-bs-dismiss="offcanvas" aria-label="Close drawer">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    
+    <div class="drawer-body">
+      <div>
+        <div class="text-uppercase text-secondary fw-bold px-3 mb-2" style="font-size: 0.68rem; letter-spacing: 0.8px;">Dashboard Views</div>
+        
+        <div class="nav-drawer-link active" onclick="navigateTo('view-status', this)">
+          <i class="fa-solid fa-chart-line text-info"></i>
+          <span>Live Mining Cards</span>
+        </div>
+        
+        <div class="nav-drawer-link" onclick="navigateTo('view-accounts', this)">
+          <i class="fa-solid fa-wallet text-warning"></i>
+          <span>My Accounts</span>
+        </div>
+        
+        <div class="nav-drawer-link" onclick="navigateTo('view-safety', this)">
+          <i class="fa-solid fa-shield-halved text-danger"></i>
+          <span>Leaf OTP Portal</span>
+        </div>
+
+        <% if (isAdmin) { %>
+        <div class="text-uppercase text-secondary fw-bold px-3 mt-3 mb-2" style="font-size: 0.68rem; letter-spacing: 0.8px;">Super Admin Only</div>
+        <div class="nav-drawer-link" onclick="navigateTo('view-overview', this)">
+          <i class="fa-solid fa-gauge-high text-primary"></i>
+          <span>System Analytics</span>
+        </div>
+        
+        <div class="nav-drawer-link" onclick="navigateTo('view-admin', this)">
+          <i class="fa-solid fa-sliders text-success"></i>
+          <span>Admin Command Hub</span>
+        </div>
+        <% } %>
+      </div>
+
+      <div class="pt-3 border-top border-secondary">
+        <button class="btn-modern-ghost w-100 d-flex align-items-center justify-content-center gap-2 mb-3" data-bs-dismiss="offcanvas">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Close & Hide Drawer</span>
+        </button>
+        <div class="text-center text-secondary" style="font-size: 0.75rem;">
+          Host: <code><%= config.CLOUDFLARE_DOMAIN %></code>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN APP CONTAINER -->
+  <main class="container-fluid py-4 px-3 px-md-4" style="max-width: 1400px;">
+
+    <!-- VIEW 1: LIVE MINING STATUS (User Requested Exact Format) -->
+    <section id="view-status">
+      <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+        <div>
+          <h4 class="fw-bold mb-1 text-white d-flex align-items-center gap-2">
+            <span>📊 Mining Status</span>
+            <span class="badge badge-atf">v5.2-POWERFUL</span>
+          </h4>
+          <p class="text-secondary mb-0 small">Real-time balances, TH/s speeds, pool rewards, games & auto-tap cycles.</p>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <span id="lastRefreshTime" class="text-muted small">Updated just now</span>
+          <button class="btn-modern-ghost py-2 px-3 small d-flex align-items-center gap-2" onclick="loadLiveMiningStatus()">
+            <i class="fa-solid fa-arrows-rotate"></i>
+            <span>Refresh</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ATF Section -->
+      <div class="mb-4">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <span class="miner-badge badge-atf"><i class="fa-solid fa-bolt me-1"></i> ATF Miner</span>
+          <span class="text-secondary small fw-semibold" id="atfCountLabel">Loading accounts...</span>
+        </div>
+        <div id="atfLiveContainer" class="row g-3">
+          <div class="col-12"><div class="glass-panel p-4 text-center text-secondary"><i class="fa-solid fa-spinner fa-spin me-2"></i> Syncing ATF accounts...</div></div>
+        </div>
+      </div>
+
+      <!-- MRG Section -->
+      <div class="mb-4">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <span class="miner-badge badge-mrg"><i class="fa-solid fa-gem me-1"></i> MRG Miner</span>
+          <span class="text-secondary small fw-semibold" id="mrgCountLabel">Loading accounts...</span>
+        </div>
+        <div id="mrgLiveContainer" class="row g-3">
+          <div class="col-12"><div class="glass-panel p-4 text-center text-secondary"><i class="fa-solid fa-spinner fa-spin me-2"></i> Syncing MRG accounts...</div></div>
+        </div>
+      </div>
+
+      <!-- Leaf Section -->
+      <div class="mb-4">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <span class="miner-badge badge-leaf"><i class="fa-solid fa-leaf me-1"></i> Leaf Miner</span>
+          <span class="text-secondary small fw-semibold" id="leafCountLabel">Loading accounts...</span>
+        </div>
+        <div id="leafLiveContainer" class="row g-3">
+          <div class="col-12"><div class="glass-panel p-4 text-center text-secondary"><i class="fa-solid fa-spinner fa-spin me-2"></i> Syncing Leaf accounts...</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 2: OVERVIEW & ANALYTICS (Admin Only) -->
+    <% if (isAdmin) { %>
+    <section id="view-overview" class="d-none">
+      <div class="row g-3 mb-4">
+        <div class="col-6 col-lg-3">
+          <div class="glass-panel p-3 p-md-4">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <div class="stat-title">Total Accounts (Global)</div>
+                <div class="stat-number-gradient"><%= accounts.total %></div>
+              </div>
+              <i class="fa-solid fa-layer-group fa-2x text-info opacity-50"></i>
+            </div>
+            <div class="small text-secondary mt-2">ATF: <%= accounts.atf.length %> | MRG: <%= accounts.mrg.length %> | Leaf: <%= (accounts.leaf || []).length %></div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="glass-panel p-3 p-md-4">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <div class="stat-title">Rotating Proxies</div>
+                <div class="stat-number-gradient text-warning"><%= proxies.healthyCount %></div>
+              </div>
+              <i class="fa-solid fa-shield-halved fa-2x text-warning opacity-50"></i>
+            </div>
+            <div class="small text-secondary mt-2">Sticky IP: <%= proxies.enabled ? 'Enabled' : 'Disabled' %></div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="glass-panel p-3 p-md-4">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <div class="stat-title">Claims Executed</div>
+                <div class="stat-number-gradient text-success"><%= sched.successfulClaims %></div>
+              </div>
+              <i class="fa-solid fa-circle-check fa-2x text-success opacity-50"></i>
+            </div>
+            <div class="small text-secondary mt-2">Scheduler Loops: <%= sched.totalRuns %></div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="glass-panel p-3 p-md-4">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <div class="stat-title">Subscribed Users</div>
+                <div class="stat-number-gradient text-primary"><%= users.length %></div>
+              </div>
+              <i class="fa-solid fa-users fa-2x text-primary opacity-50"></i>
+            </div>
+            <div class="small text-secondary mt-2">MongoDB Cloud Cluster</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <% } %>
+
+    <!-- VIEW 3: ACCOUNT MANAGER (Strict User Isolation) -->
+    <section id="view-accounts" class="d-none">
+      <div class="glass-panel mb-4 overflow-hidden">
+        <div class="p-3 border-bottom border-secondary d-flex justify-content-between align-items-center">
+          <span class="fw-bold"><i class="fa-solid fa-list-check me-2 text-info"></i> <%= isAdmin ? 'All Registered Mining Accounts (Admin Mode)' : 'My Configured Mining Accounts' %></span>
+          <span class="text-secondary small">Total <%= accounts.total %> accounts</span>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-dark-custom align-middle mb-0">
+            <thead>
+              <tr>
+                <th>Miner</th>
+                <th>Label / Name</th>
+                <th>Owner ID</th>
+                <th>Status</th>
+                <th>Added Date</th>
+                <th class="text-end">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% Object.keys(accounts).filter(k => k !== 'total').forEach(type => { %>
+                <% accounts[type].forEach(acc => { %>
+                  <tr>
+                    <td>
+                      <span class="miner-badge badge-<%= type %>"><%= type.toUpperCase() %></span>
+                    </td>
+                    <td><strong><%= acc.name || acc.label || 'Account' %></strong></td>
+                    <td><code><%= acc.tgId || 'N/A' %></code></td>
+                    <td>
+                      <span class="badge <%= acc.enabled !== false ? 'bg-success' : 'bg-secondary' %>">
+                        <%= acc.enabled !== false ? 'Active' : 'Disabled' %>
+                      </span>
+                    </td>
+                    <td class="text-secondary small"><%= acc.addedAt ? new Date(acc.addedAt).toLocaleDateString() : 'N/A' %></td>
+                    <td class="text-end">
+                      <button class="btn btn-sm btn-outline-warning me-1" onclick="toggleAcc('<%= type %>', '<%= acc.tgId %>', '<%= acc.name || acc.label %>', <%= acc.enabled !== false ? false : true %>)">
+                        <i class="fa-solid fa-power-off"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-danger" onclick="deleteAcc('<%= type %>', '<%= acc.tgId %>', '<%= acc.name || acc.label %>')">
+                        <i class="fa-solid fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                <% }) %>
+              <% }) %>
+              <% if (!accounts.total) { %>
+                <tr>
+                  <td colspan="6" class="text-center text-secondary py-4">
+                    No accounts found for your user ID. Add accounts via Telegram Bot!
+                  </td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 4: LEAF OTP SAFETY PORTAL -->
+    <section id="view-safety" class="d-none">
+      <div class="glass-panel p-4 mb-4">
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <div class="p-3 rounded-3" style="background: rgba(244, 63, 94, 0.15); border: 1px solid rgba(244, 63, 94, 0.35);">
+            <i class="fa-solid fa-shield-halved text-danger fs-3"></i>
+          </div>
+          <div>
+            <h5 class="fw-bold text-white mb-1">Leaf Safety OTP Verification Portal</h5>
+            <p class="text-secondary mb-0 small">Leaf requires OTP confirmation sent directly via official Telegram bot (<code>@LeafEarnBot</code>) every 24 hours.</p>
+          </div>
+        </div>
+
+        <div class="row g-3">
+          <% (accounts.leaf || []).forEach((acc, idx) => { %>
+            <div class="col-md-6">
+              <div class="p-3 rounded-3" style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.06);">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <strong>🌿 <%= acc.name || acc.label || 'Leaf Acc' %></strong>
+                  <span class="miner-badge badge-leaf">TG: <%= acc.tgId %></span>
+                </div>
+                <p class="small text-muted mb-3">1. Tap <b>Send OTP</b> to receive code in @LeafEarnBot<br>2. Type the 4-8 digit OTP below and tap <b>Verify</b></p>
+                <div class="input-group mb-2">
+                  <input type="text" id="otp_input_<%= idx %>" class="form-control bg-dark text-white border-secondary" placeholder="Enter 4-8 digit OTP">
+                  <button class="btn btn-outline-info" onclick="resendOtp('leaf', '<%= acc.tgId %>', '<%= acc.name || acc.label %>')">
+                    <i class="fa-solid fa-paper-plane me-1"></i> Send OTP
+                  </button>
+                  <button class="btn btn-gradient-success" onclick="submitOtp('leaf', '<%= acc.tgId %>', '<%= acc.name || acc.label %>', 'otp_input_<%= idx %>')">
+                    Verify
+                  </button>
+                </div>
+              </div>
+            </div>
+          <% }) %>
+          <% if (!(accounts.leaf || []).length) { %>
+            <div class="col-12"><div class="text-secondary text-center p-3">No Leaf accounts registered under your account yet.</div></div>
+          <% } %>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 5: ADMIN COMMAND CENTER (Strict Admin Guard) -->
+    <% if (isAdmin) { %>
+    <section id="view-admin" class="d-none">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <div class="glass-panel p-4 h-100">
+            <h5 class="fw-bold mb-3 text-info"><i class="fa-solid fa-bullhorn me-2"></i> Broadcast to All Users</h5>
+            <p class="small text-secondary mb-3">Send announcement message to all <%= users.length %> Telegram registered users.</p>
+            <div class="mb-3">
+              <label class="form-label small text-secondary">Admin Secret Key</label>
+              <input type="password" id="adminKeyInput" class="form-control bg-dark text-white border-secondary" placeholder="Enter ADMIN_SECRET_KEY">
+            </div>
+            <div class="mb-3">
+              <label class="form-label small text-secondary">Message Content (Markdown supported)</label>
+              <textarea id="broadcastMsg" class="form-control bg-dark text-white border-secondary" rows="4" placeholder="🚀 Update: New mining features unlocked!"></textarea>
+            </div>
+            <button class="btn-modern-primary w-100" onclick="sendBroadcast()">
+              <i class="fa-solid fa-paper-plane me-1"></i> Send Telegram Broadcast
+            </button>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="glass-panel p-4 h-100">
+            <h5 class="fw-bold mb-3 text-warning"><i class="fa-solid fa-network-wired me-2"></i> Proxy & System Maintenance</h5>
+            <p class="small text-secondary mb-3">Re-test active proxies, flush failed endpoints, and trigger system actions.</p>
+            <div class="d-flex flex-column gap-2">
+              <button class="btn-modern-ghost py-3 text-start d-flex justify-content-between align-items-center" onclick="refreshProxies()">
+                <span><i class="fa-solid fa-arrows-rotate text-info me-2"></i> Refresh & Re-test Proxies</span>
+                <i class="fa-solid fa-chevron-right small text-muted"></i>
+              </button>
+              <button class="btn-modern-ghost py-3 text-start d-flex justify-content-between align-items-center" onclick="triggerMiningLoop()">
+                <span><i class="fa-solid fa-play text-success me-2"></i> Trigger Mining Claim Cycle</span>
+                <i class="fa-solid fa-chevron-right small text-muted"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <% } %>
+
+  </main>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Application Logic -->
+  <script>
+    const drawerEl = document.getElementById('appDrawer');
+    const bsDrawer = new bootstrap.Offcanvas(drawerEl);
+
+    document.getElementById('hamburgerBtn').addEventListener('click', function(e) {
+      e.stopPropagation();
+      bsDrawer.show();
+    });
+
+    function navigateTo(viewId, navEl) {
+      const views = ['view-status', 'view-overview', 'view-accounts', 'view-safety', 'view-admin'];
+      views.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('d-none');
+      });
+
+      const target = document.getElementById(viewId);
+      if (target) target.classList.remove('d-none');
+
+      document.querySelectorAll('.nav-drawer-link').forEach(item => item.classList.remove('active'));
+      if (navEl) navEl.classList.add('active');
+
+      bsDrawer.hide();
+
+      if (viewId === 'view-status') {
+        loadLiveMiningStatus();
+      }
+    }
+
+    const tg = window.Telegram?.WebApp;
+    if (tg) {
+      tg.expand();
+      tg.ready();
+    }
+
+    let currentUserTgId = null;
+    let currentUserName = null;
+
+    if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
+      currentUserTgId = String(tg.initDataUnsafe.user.id);
+      currentUserName = tg.initDataUnsafe.user.first_name || tg.initDataUnsafe.user.username;
+    } else {
+      const urlParams = new URLSearchParams(window.location.search);
+      currentUserTgId = urlParams.get('tgId');
+    }
+
+    if (currentUserTgId) {
+      document.getElementById('userBadge').classList.remove('d-none');
+      document.getElementById('userNameDisplay').innerText = currentUserName || `ID: ${currentUserTgId}`;
+      document.getElementById('appHeaderSubtitle').innerText = `Logged in as Telegram User (${currentUserTgId})`;
+    }
+
+    async function loadLiveMiningStatus() {
+      const endpoint = currentUserTgId ? `/api/accounts/live-status?tgId=${currentUserTgId}` : `/api/accounts/live-status`;
+      try {
+        const res = await fetch(endpoint);
+        const data = await res.json();
+        if (!data.success) return;
+
+        const live = data.live;
+        document.getElementById('lastRefreshTime').innerText = `Updated: ${new Date().toLocaleTimeString()}`;
+
+        // Render ATF
+        document.getElementById('atfCountLabel').innerText = `(${live.atf.length} accounts)`;
+        let atfHtml = '';
+        live.atf.forEach(acc => {
+          atfHtml += `
+            <div class="col-md-6 col-lg-4">
+              <div class="miner-card atf">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                  <div>
+                    <span class="text-success me-1">🟢</span>
+                    <strong class="text-white">${acc.label}</strong>
+                    <span class="miner-badge badge-atf ms-1">Lv.${acc.level}</span>
+                  </div>
+                  <span class="miner-badge badge-atf">${acc.rateHr}/hr</span>
+                </div>
+                <div class="row g-2 mb-3">
+                  <div class="col-6">
+                    <div class="stat-box">
+                      <div class="stat-title">Pool Balance</div>
+                      <div class="stat-value text-info">💰 ${acc.poolBalance}</div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="stat-box">
+                      <div class="stat-title">Pending</div>
+                      <div class="stat-value text-warning">+${acc.pendingReward}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center small text-secondary mt-auto pt-2 border-top border-secondary">
+                  <span>⛏ ${acc.status}</span>
+                  <span class="text-warning"><i class="fa-regular fa-clock me-1"></i>${acc.timeLeft}</span>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+        document.getElementById('atfLiveContainer').innerHTML = atfHtml || `<div class="col-12"><div class="glass-panel p-3 text-secondary text-center">No ATF accounts found.</div></div>`;
+
+        // Render MRG
+        document.getElementById('mrgCountLabel').innerText = `(${live.mrg.length} accounts)`;
+        let mrgHtml = '';
+        live.mrg.forEach(acc => {
+          mrgHtml += `
+            <div class="col-md-6 col-lg-4">
+              <div class="miner-card mrg">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                  <div>
+                    <span class="text-success me-1">🟢</span>
+                    <strong class="text-white">${acc.label}</strong>
+                    <small class="text-secondary ms-1">${acc.username}</small>
+                  </div>
+                  <span class="miner-badge badge-mrg">L${acc.level} (${acc.speedThs} TH/s)</span>
+                </div>
+                <div class="row g-2 mb-3">
+                  <div class="col-6">
+                    <div class="stat-box">
+                      <div class="stat-title">In-App Balance</div>
+                      <div class="stat-value text-warning">💎 ${acc.balance}</div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="stat-box">
+                      <div class="stat-title">Unclaimed</div>
+                      <div class="stat-value text-success">${acc.unclaimed} MRG</div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="stat-box">
+                      <div class="stat-title">Holding (Wallet)</div>
+                      <div class="stat-value text-info" style="font-size: 0.95rem;">${acc.holding}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center small text-secondary mt-auto pt-2 border-top border-secondary">
+                  <span>👛 ${acc.tonWallet}</span>
+                  <span class="text-success"><i class="fa-solid fa-link me-1"></i>Ton Active</span>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+        document.getElementById('mrgLiveContainer').innerHTML = mrgHtml || `<div class="col-12"><div class="glass-panel p-3 text-secondary text-center">No MRG accounts found.</div></div>`;
+
+        // Render Leaf
+        document.getElementById('leafCountLabel').innerText = `(${live.leaf.length} accounts)`;
+        let leafHtml = '';
+        live.leaf.forEach(acc => {
+          leafHtml += `
+            <div class="col-md-6 col-lg-4">
+              <div class="miner-card leaf">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                  <div>
+                    <span class="text-success me-1">🟢</span>
+                    <strong class="text-white">${acc.label}</strong>
+                    <span class="miner-badge badge-leaf ms-1">🎁 ${acc.gift}</span>
+                  </div>
+                  <span class="miner-badge ${acc.otpRequired ? 'badge-danger-glow' : 'badge-leaf'}">
+                    ${acc.otpRequired ? '🛡️ OTP Required' : 'Mining Active'}
+                  </span>
+                </div>
+                <div class="row g-2 mb-3">
+                  <div class="col-6">
+                    <div class="stat-box">
+                      <div class="stat-title">Leaf Balance</div>
+                      <div class="stat-value text-success">🌿 ${acc.leafBalance}</div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="stat-box">
+                      <div class="stat-title">Mined Points</div>
+                      <div class="stat-value text-info">${acc.minedPoints} pts</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center small text-secondary mt-auto pt-2 border-top border-secondary">
+                  <span>Cycle: ${acc.hasCycle ? 'Active' : 'Standby'}</span>
+                  <span class="${acc.safetyPassed ? 'text-success' : 'text-warning'}">
+                    ${acc.safetyPassed ? '🛡️ Safety Clear' : '🛡️ Check Ready'}
+                  </span>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+        document.getElementById('leafLiveContainer').innerHTML = leafHtml || `<div class="col-12"><div class="glass-panel p-3 text-secondary text-center">No Leaf accounts found.</div></div>`;
+
+      } catch (err) {
+        console.error('Error fetching live mining status', err);
+      }
+    }
+
+    loadLiveMiningStatus();
+    setInterval(loadLiveMiningStatus, 20000);
+
+    async function triggerMiningLoop() {
+      const res = await fetch('/api/mining/trigger', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ requesterTgId: currentUserTgId })
+      });
+      const data = await res.json();
+      alert(data.message || data.error);
+      loadLiveMiningStatus();
+    }
+
+    async function refreshProxies() {
+      const res = await fetch('/api/proxies/refresh', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ requesterTgId: currentUserTgId })
+      });
+      const data = await res.json();
+      alert(data.message || data.error);
+    }
+
+    async function toggleAcc(type, tgId, label, active) {
+      const res = await fetch('/api/accounts/toggle', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type, tgId, label, active, requesterTgId: currentUserTgId })
+      });
+      const data = await res.json();
+      if (!data.success) alert(data.error);
+      else location.reload();
+    }
+
+    async function deleteAcc(type, tgId, label) {
+      if (!confirm(`Are you sure you want to delete ${label}?`)) return;
+      const res = await fetch('/api/accounts/delete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type, tgId, label, requesterTgId: currentUserTgId })
+      });
+      const data = await res.json();
+      if (!data.success) alert(data.error);
+      else location.reload();
+    }
+
+    async function submitOtp(minerType, tgId, label, inputId) {
+      const code = document.getElementById(inputId).value.trim();
+      if (!code) return alert('Please enter code');
+      const res = await fetch('/api/otp/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ minerType, tgId, label, code, requesterTgId: currentUserTgId })
+      });
+      const data = await res.json();
+      alert(data.message || data.error);
+      location.reload();
+    }
+
+    async function resendOtp(minerType, tgId, label) {
+      const res = await fetch('/api/otp/resend', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ minerType, tgId, label, requesterTgId: currentUserTgId })
+      });
+      const data = await res.json();
+      alert(data.message || data.error);
+    }
+
+    async function sendBroadcast() {
+      const message = document.getElementById('broadcastMsg').value.trim();
+      const key = document.getElementById('adminKeyInput').value.trim();
+      if (!message) return alert('Message cannot be empty');
+      const res = await fetch('/api/admin/broadcast', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ key, message, requesterTgId: currentUserTgId })
+      });
+      const data = await res.json();
+      alert(data.message || data.error);
+    }
+  </script>
+</body>
+</html>
