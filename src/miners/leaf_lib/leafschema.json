@@ -1,0 +1,2531 @@
+{
+  "schema": {
+    "leaf.v1.ClientEvent": {
+      "kill": {
+        "number": 1,
+        "type": "message",
+        "repeated": false,
+        "type_name": ".leaf.v1.Kill"
+      },
+      "powerup": {
+        "number": 2,
+        "type": "message",
+        "repeated": false,
+        "type_name": ".leaf.v1.PowerupTaken"
+      },
+      "wave": {
+        "number": 3,
+        "type": "message",
+        "repeated": false,
+        "type_name": ".leaf.v1.WaveReached"
+      },
+      "end": {
+        "number": 4,
+        "type": "message",
+        "repeated": false,
+        "type_name": ".leaf.v1.EndRun"
+      },
+      "move": {
+        "number": 5,
+        "type": "message",
+        "repeated": false,
+        "type_name": ".leaf.v1.MovePlaced"
+      },
+      "ad_continue": {
+        "number": 6,
+        "type": "message",
+        "repeated": false,
+        "type_name": ".leaf.v1.AdContinueRequested"
+      },
+      "pause": {
+        "number": 7,
+        "type": "message",
+        "repeated": false,
+        "type_name": ".leaf.v1.RunPaused"
+      },
+      "resume": {
+        "number": 8,
+        "type": "message",
+        "repeated": false,
+        "type_name": ".leaf.v1.RunResumed"
+      }
+    },
+    "leaf.v1.RunPaused": {},
+    "leaf.v1.RunResumed": {},
+    "leaf.v1.AdContinueRequested": {
+      "ads_shown": {
+        "number": 1,
+        "type": "int32",
+        "repeated": false
+      },
+      "ads_clicked": {
+        "number": 2,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.Kill": {
+      "id": {
+        "number": 1,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.MovePlaced": {
+      "cell": {
+        "number": 1,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.PowerupTaken": {
+      "id": {
+        "number": 1,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.WaveReached": {
+      "wave": {
+        "number": 1,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.EndRun": {
+      "reason": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.ServerEvent": {
+      "ready": {
+        "number": 1,
+        "type": "message",
+        "repeated": false,
+        "type_name": ".leaf.v1.Ready"
+      },
+      "score": {
+        "number": 2,
+        "type": "message",
+        "repeated": false,
+        "type_name": ".leaf.v1.ScoreUpdate"
+      },
+      "settled": {
+        "number": 3,
+        "type": "message",
+        "repeated": false,
+        "type_name": ".leaf.v1.Settled"
+      },
+      "error": {
+        "number": 4,
+        "type": "message",
+        "repeated": false,
+        "type_name": ".leaf.v1.PlayError"
+      },
+      "wave_seed": {
+        "number": 5,
+        "type": "message",
+        "repeated": false,
+        "type_name": ".leaf.v1.WaveSeed"
+      },
+      "board": {
+        "number": 6,
+        "type": "message",
+        "repeated": false,
+        "type_name": ".leaf.v1.BoardUpdate"
+      },
+      "deal": {
+        "number": 7,
+        "type": "message",
+        "repeated": false,
+        "type_name": ".leaf.v1.WordDeal"
+      },
+      "ad_continue": {
+        "number": 8,
+        "type": "message",
+        "repeated": false,
+        "type_name": ".leaf.v1.AdContinueGranted"
+      }
+    },
+    "leaf.v1.AdContinueGranted": {
+      "granted": {
+        "number": 1,
+        "type": "bool",
+        "repeated": false
+      },
+      "amount": {
+        "number": 2,
+        "type": "int32",
+        "repeated": false
+      },
+      "left": {
+        "number": 3,
+        "type": "int32",
+        "repeated": false
+      },
+      "reason": {
+        "number": 4,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.WordDeal": {
+      "grid_size": {
+        "number": 1,
+        "type": "int32",
+        "repeated": false
+      },
+      "rows": {
+        "number": 2,
+        "type": "string",
+        "repeated": true
+      },
+      "words": {
+        "number": 3,
+        "type": "string",
+        "repeated": true
+      },
+      "placed_json": {
+        "number": 4,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.BoardUpdate": {
+      "board": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      },
+      "ai_cell": {
+        "number": 2,
+        "type": "int32",
+        "repeated": false
+      },
+      "result": {
+        "number": 3,
+        "type": "string",
+        "repeated": false
+      },
+      "over": {
+        "number": 4,
+        "type": "bool",
+        "repeated": false
+      },
+      "win_line": {
+        "number": 5,
+        "type": "int32",
+        "repeated": true
+      }
+    },
+    "leaf.v1.WaveSeed": {
+      "wave": {
+        "number": 1,
+        "type": "int32",
+        "repeated": false
+      },
+      "seed": {
+        "number": 2,
+        "type": "uint32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.Ready": {
+      "token": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      },
+      "seed": {
+        "number": 2,
+        "type": "uint32",
+        "repeated": false
+      },
+      "slots_left": {
+        "number": 3,
+        "type": "int32",
+        "repeated": false
+      },
+      "stake": {
+        "number": 4,
+        "type": "int64",
+        "repeated": false
+      },
+      "ad_block_id": {
+        "number": 5,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.ScoreUpdate": {
+      "score": {
+        "number": 1,
+        "type": "int32",
+        "repeated": false
+      },
+      "wave": {
+        "number": 2,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.Settled": {
+      "reward": {
+        "number": 1,
+        "type": "int64",
+        "repeated": false
+      },
+      "balance": {
+        "number": 2,
+        "type": "int64",
+        "repeated": false
+      },
+      "score": {
+        "number": 3,
+        "type": "int32",
+        "repeated": false
+      },
+      "wave": {
+        "number": 4,
+        "type": "int32",
+        "repeated": false
+      },
+      "kills": {
+        "number": 5,
+        "type": "int32",
+        "repeated": false
+      },
+      "duration_sec": {
+        "number": 6,
+        "type": "int32",
+        "repeated": false
+      },
+      "note": {
+        "number": 7,
+        "type": "string",
+        "repeated": false
+      },
+      "violations": {
+        "number": 8,
+        "type": "string",
+        "repeated": true
+      }
+    },
+    "leaf.v1.PlayError": {
+      "code": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      },
+      "message": {
+        "number": 2,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.QuickOfferRequest": {
+      "type": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.QuickOfferResponse": {
+      "task": {
+        "number": 1,
+        "type": "message",
+        "repeated": false,
+        "type_name": ".leaf.v1.QuickTask"
+      },
+      "has_task": {
+        "number": 2,
+        "type": "bool",
+        "repeated": false
+      }
+    },
+    "leaf.v1.QuickStatusRequest": {
+      "exclude": {
+        "number": 1,
+        "type": "string",
+        "repeated": true
+      }
+    },
+    "leaf.v1.QuickTask": {
+      "type": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      },
+      "reward": {
+        "number": 2,
+        "type": "int64",
+        "repeated": false
+      },
+      "title": {
+        "number": 3,
+        "type": "string",
+        "repeated": false
+      },
+      "subtitle": {
+        "number": 4,
+        "type": "string",
+        "repeated": false
+      },
+      "image_url": {
+        "number": 5,
+        "type": "string",
+        "repeated": false
+      },
+      "body_html": {
+        "number": 6,
+        "type": "string",
+        "repeated": false
+      },
+      "open_url": {
+        "number": 7,
+        "type": "string",
+        "repeated": false
+      },
+      "cta": {
+        "number": 8,
+        "type": "string",
+        "repeated": false
+      },
+      "wait_sec": {
+        "number": 9,
+        "type": "int32",
+        "repeated": false
+      },
+      "ref_id": {
+        "number": 10,
+        "type": "string",
+        "repeated": false
+      },
+      "message": {
+        "number": 11,
+        "type": "string",
+        "repeated": false
+      },
+      "reward_url": {
+        "number": 12,
+        "type": "string",
+        "repeated": false
+      },
+      "reward_cta": {
+        "number": 13,
+        "type": "string",
+        "repeated": false
+      },
+      "ad_unit": {
+        "number": 14,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.QuickStatusResponse": {
+      "task": {
+        "number": 1,
+        "type": "message",
+        "repeated": false,
+        "type_name": ".leaf.v1.QuickTask"
+      },
+      "has_task": {
+        "number": 2,
+        "type": "bool",
+        "repeated": false
+      },
+      "next_at_ms": {
+        "number": 3,
+        "type": "int64",
+        "repeated": false
+      },
+      "available": {
+        "number": 4,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.QuickClaimRequest": {
+      "type": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      },
+      "ref_id": {
+        "number": 2,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.QuickClaimResponse": {
+      "credited": {
+        "number": 1,
+        "type": "int64",
+        "repeated": false
+      },
+      "balance": {
+        "number": 2,
+        "type": "int64",
+        "repeated": false
+      },
+      "next": {
+        "number": 3,
+        "type": "message",
+        "repeated": false,
+        "type_name": ".leaf.v1.QuickTask"
+      },
+      "has_next": {
+        "number": 4,
+        "type": "bool",
+        "repeated": false
+      },
+      "next_at_ms": {
+        "number": 5,
+        "type": "int64",
+        "repeated": false
+      }
+    },
+    "leaf.v1.CheckRequest": {},
+    "leaf.v1.CheckResponse": {
+      "ok": {
+        "number": 1,
+        "type": "bool",
+        "repeated": false
+      },
+      "version": {
+        "number": 2,
+        "type": "string",
+        "repeated": false
+      },
+      "server_time_ms": {
+        "number": 3,
+        "type": "int64",
+        "repeated": false
+      },
+      "user_count": {
+        "number": 4,
+        "type": "int64",
+        "repeated": false
+      }
+    },
+    "leaf.v1.InitRequest": {
+      "start_param": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.InitResponse": {
+      "user": {
+        "number": 1,
+        "type": "message",
+        "repeated": false,
+        "type_name": ".leaf.v1.User"
+      },
+      "is_new": {
+        "number": 2,
+        "type": "bool",
+        "repeated": false
+      }
+    },
+    "leaf.v1.SyncRequest": {},
+    "leaf.v1.SyncResponse": {
+      "user": {
+        "number": 1,
+        "type": "message",
+        "repeated": false,
+        "type_name": ".leaf.v1.User"
+      }
+    },
+    "leaf.v1.User": {
+      "tg_id": {
+        "number": 1,
+        "type": "int64",
+        "repeated": false
+      },
+      "leaf": {
+        "number": 2,
+        "type": "int64",
+        "repeated": false
+      },
+      "commission_earned": {
+        "number": 3,
+        "type": "int64",
+        "repeated": false
+      },
+      "username": {
+        "number": 4,
+        "type": "string",
+        "repeated": false
+      },
+      "first_name": {
+        "number": 5,
+        "type": "string",
+        "repeated": false
+      },
+      "is_banned": {
+        "number": 7,
+        "type": "bool",
+        "repeated": false
+      },
+      "ban_reason": {
+        "number": 8,
+        "type": "string",
+        "repeated": false
+      },
+      "referral_credited": {
+        "number": 9,
+        "type": "bool",
+        "repeated": false
+      },
+      "engaged": {
+        "number": 10,
+        "type": "bool",
+        "repeated": false
+      },
+      "created_at_ms": {
+        "number": 11,
+        "type": "int64",
+        "repeated": false
+      },
+      "role": {
+        "number": 12,
+        "type": "string",
+        "repeated": false
+      },
+      "referral_count": {
+        "number": 13,
+        "type": "int32",
+        "repeated": false
+      },
+      "referral_active": {
+        "number": 14,
+        "type": "int32",
+        "repeated": false
+      },
+      "referral_pending": {
+        "number": 15,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.MembershipRequest": {},
+    "leaf.v1.RequiredChat": {
+      "name": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      },
+      "url": {
+        "number": 2,
+        "type": "string",
+        "repeated": false
+      },
+      "joined": {
+        "number": 3,
+        "type": "bool",
+        "repeated": false
+      }
+    },
+    "leaf.v1.MembershipResponse": {
+      "verified": {
+        "number": 1,
+        "type": "bool",
+        "repeated": false
+      },
+      "chats": {
+        "number": 2,
+        "type": "message",
+        "repeated": true,
+        "type_name": ".leaf.v1.RequiredChat"
+      }
+    },
+    "leaf.v1.ActivityRequest": {
+      "take": {
+        "number": 1,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.LedgerEntry": {
+      "id": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      },
+      "delta": {
+        "number": 2,
+        "type": "int64",
+        "repeated": false
+      },
+      "title": {
+        "number": 3,
+        "type": "string",
+        "repeated": false
+      },
+      "created_at_ms": {
+        "number": 4,
+        "type": "int64",
+        "repeated": false
+      },
+      "reason": {
+        "number": 5,
+        "type": "string",
+        "repeated": false
+      },
+      "detail": {
+        "number": 6,
+        "type": "string",
+        "repeated": false
+      },
+      "icon": {
+        "number": 7,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.ActivityResponse": {
+      "entries": {
+        "number": 1,
+        "type": "message",
+        "repeated": true,
+        "type_name": ".leaf.v1.LedgerEntry"
+      }
+    },
+    "leaf.v1.TasksRequest": {},
+    "leaf.v1.TaskItem": {
+      "id": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      },
+      "type": {
+        "number": 2,
+        "type": "string",
+        "repeated": false
+      },
+      "title": {
+        "number": 3,
+        "type": "string",
+        "repeated": false
+      },
+      "description": {
+        "number": 4,
+        "type": "string",
+        "repeated": false
+      },
+      "action_url": {
+        "number": 5,
+        "type": "string",
+        "repeated": false
+      },
+      "reward": {
+        "number": 6,
+        "type": "int64",
+        "repeated": false
+      },
+      "priority": {
+        "number": 7,
+        "type": "int32",
+        "repeated": false
+      },
+      "completed": {
+        "number": 8,
+        "type": "bool",
+        "repeated": false
+      },
+      "tries_used": {
+        "number": 9,
+        "type": "int32",
+        "repeated": false
+      },
+      "tries_required": {
+        "number": 10,
+        "type": "int32",
+        "repeated": false
+      },
+      "icon_url": {
+        "number": 11,
+        "type": "string",
+        "repeated": false
+      },
+      "views_used": {
+        "number": 12,
+        "type": "int32",
+        "repeated": false
+      },
+      "max_views": {
+        "number": 13,
+        "type": "int32",
+        "repeated": false
+      },
+      "locked": {
+        "number": 14,
+        "type": "bool",
+        "repeated": false
+      },
+      "next_reset_at_ms": {
+        "number": 15,
+        "type": "int64",
+        "repeated": false
+      }
+    },
+    "leaf.v1.TasksResponse": {
+      "tasks": {
+        "number": 1,
+        "type": "message",
+        "repeated": true,
+        "type_name": ".leaf.v1.TaskItem"
+      }
+    },
+    "leaf.v1.TopInvitersRequest": {},
+    "leaf.v1.InviterRow": {
+      "name": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      },
+      "active_count": {
+        "number": 2,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.TopInvitersResponse": {
+      "leaders": {
+        "number": 1,
+        "type": "message",
+        "repeated": true,
+        "type_name": ".leaf.v1.InviterRow"
+      },
+      "your_rank": {
+        "number": 2,
+        "type": "int32",
+        "repeated": false
+      },
+      "your_active_count": {
+        "number": 3,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.MyReferralsRequest": {},
+    "leaf.v1.ReferralRow": {
+      "tg_id": {
+        "number": 1,
+        "type": "int64",
+        "repeated": false
+      },
+      "name": {
+        "number": 2,
+        "type": "string",
+        "repeated": false
+      },
+      "active": {
+        "number": 3,
+        "type": "bool",
+        "repeated": false
+      },
+      "earned": {
+        "number": 4,
+        "type": "int64",
+        "repeated": false
+      },
+      "joined_at_ms": {
+        "number": 5,
+        "type": "int64",
+        "repeated": false
+      }
+    },
+    "leaf.v1.MyReferralsResponse": {
+      "referrals": {
+        "number": 1,
+        "type": "message",
+        "repeated": true,
+        "type_name": ".leaf.v1.ReferralRow"
+      },
+      "total": {
+        "number": 2,
+        "type": "int32",
+        "repeated": false
+      },
+      "active": {
+        "number": 3,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.OpenRunRequest": {
+      "game": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      },
+      "mode": {
+        "number": 2,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.OpenRunResponse": {
+      "token": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.GameStatusRequest": {
+      "game": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.GameStatusResponse": {
+      "slots_used": {
+        "number": 1,
+        "type": "int32",
+        "repeated": false
+      },
+      "slots_cap": {
+        "number": 2,
+        "type": "int32",
+        "repeated": false
+      },
+      "next_slot_at_ms": {
+        "number": 3,
+        "type": "int64",
+        "repeated": false
+      },
+      "played_total": {
+        "number": 4,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.PendingClaimsRequest": {},
+    "leaf.v1.PendingClaimRow": {
+      "game": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      },
+      "token": {
+        "number": 2,
+        "type": "string",
+        "repeated": false
+      },
+      "reward": {
+        "number": 3,
+        "type": "int64",
+        "repeated": false
+      }
+    },
+    "leaf.v1.PendingClaimsResponse": {
+      "rows": {
+        "number": 1,
+        "type": "message",
+        "repeated": true,
+        "type_name": ".leaf.v1.PendingClaimRow"
+      }
+    },
+    "leaf.v1.PendingClaimRequest": {
+      "game": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.PendingClaimResponse": {
+      "has_pending": {
+        "number": 1,
+        "type": "bool",
+        "repeated": false
+      },
+      "token": {
+        "number": 2,
+        "type": "string",
+        "repeated": false
+      },
+      "reward": {
+        "number": 3,
+        "type": "int64",
+        "repeated": false
+      }
+    },
+    "leaf.v1.StartClaimRequest": {
+      "token": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.StartClaimResponse": {
+      "reward": {
+        "number": 1,
+        "type": "int64",
+        "repeated": false
+      },
+      "provider_ref": {
+        "number": 2,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.ClaimRunRequest": {
+      "token": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      },
+      "ads_shown": {
+        "number": 2,
+        "type": "int32",
+        "repeated": false
+      },
+      "ads_clicked": {
+        "number": 3,
+        "type": "int32",
+        "repeated": false
+      },
+      "ads_offered": {
+        "number": 4,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.ClaimRunResponse": {
+      "reward": {
+        "number": 1,
+        "type": "int64",
+        "repeated": false
+      },
+      "balance": {
+        "number": 2,
+        "type": "int64",
+        "repeated": false
+      },
+      "base": {
+        "number": 3,
+        "type": "int64",
+        "repeated": false
+      },
+      "divisor": {
+        "number": 4,
+        "type": "int32",
+        "repeated": false
+      },
+      "ads_shown": {
+        "number": 5,
+        "type": "int32",
+        "repeated": false
+      },
+      "ads_clicked": {
+        "number": 6,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.MineStatusRequest": {},
+    "leaf.v1.ClaimRequest": {},
+    "leaf.v1.MineRequest": {
+      "ads_shown": {
+        "number": 1,
+        "type": "int32",
+        "repeated": false
+      },
+      "ads_clicked": {
+        "number": 2,
+        "type": "int32",
+        "repeated": false
+      },
+      "ads_offered": {
+        "number": 3,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.PickRequest": {
+      "gift": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.MineStatusResponse": {
+      "has_cycle": {
+        "number": 1,
+        "type": "bool",
+        "repeated": false
+      },
+      "gift": {
+        "number": 2,
+        "type": "string",
+        "repeated": false
+      },
+      "mined": {
+        "number": 3,
+        "type": "int32",
+        "repeated": false
+      },
+      "next_mine_at_ms": {
+        "number": 4,
+        "type": "int64",
+        "repeated": false
+      },
+      "claimed": {
+        "number": 5,
+        "type": "bool",
+        "repeated": false
+      },
+      "balance": {
+        "number": 6,
+        "type": "int64",
+        "repeated": false
+      },
+      "ad_block_id": {
+        "number": 7,
+        "type": "string",
+        "repeated": false
+      },
+      "gained": {
+        "number": 8,
+        "type": "int32",
+        "repeated": false
+      },
+      "divisor": {
+        "number": 9,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.CompleteTaskRequest": {
+      "task_id": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.CompleteTaskResponse": {
+      "ok": {
+        "number": 1,
+        "type": "bool",
+        "repeated": false
+      },
+      "status": {
+        "number": 2,
+        "type": "string",
+        "repeated": false
+      },
+      "reward": {
+        "number": 3,
+        "type": "int64",
+        "repeated": false
+      },
+      "balance": {
+        "number": 4,
+        "type": "int64",
+        "repeated": false
+      },
+      "tries_used": {
+        "number": 5,
+        "type": "int32",
+        "repeated": false
+      },
+      "tries_required": {
+        "number": 6,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.AdViewStatusRequest": {
+      "task_id": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.AdViewStatusResponse": {
+      "views_used": {
+        "number": 1,
+        "type": "int32",
+        "repeated": false
+      },
+      "max_views": {
+        "number": 2,
+        "type": "int32",
+        "repeated": false
+      },
+      "locked": {
+        "number": 3,
+        "type": "bool",
+        "repeated": false
+      },
+      "next_reset_at_ms": {
+        "number": 4,
+        "type": "int64",
+        "repeated": false
+      }
+    },
+    "leaf.v1.StartAdViewRequest": {
+      "task_id": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.StartAdViewResponse": {
+      "token": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      },
+      "reward": {
+        "number": 2,
+        "type": "int64",
+        "repeated": false
+      },
+      "provider_ref": {
+        "number": 3,
+        "type": "string",
+        "repeated": false
+      },
+      "provider_key": {
+        "number": 4,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.CompleteAdViewRequest": {
+      "token": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      },
+      "ads_shown": {
+        "number": 2,
+        "type": "int32",
+        "repeated": false
+      },
+      "ads_clicked": {
+        "number": 3,
+        "type": "int32",
+        "repeated": false
+      },
+      "ad_id": {
+        "number": 4,
+        "type": "string",
+        "repeated": false
+      },
+      "ads_offered": {
+        "number": 5,
+        "type": "int32",
+        "repeated": false
+      },
+      "adsgram_fallback": {
+        "number": 6,
+        "type": "bool",
+        "repeated": false
+      }
+    },
+    "leaf.v1.CompleteAdViewResponse": {
+      "ok": {
+        "number": 1,
+        "type": "bool",
+        "repeated": false
+      },
+      "reward": {
+        "number": 2,
+        "type": "int64",
+        "repeated": false
+      },
+      "balance": {
+        "number": 3,
+        "type": "int64",
+        "repeated": false
+      },
+      "base": {
+        "number": 4,
+        "type": "int64",
+        "repeated": false
+      },
+      "divisor": {
+        "number": 5,
+        "type": "int32",
+        "repeated": false
+      },
+      "ads_shown": {
+        "number": 6,
+        "type": "int32",
+        "repeated": false
+      },
+      "ads_clicked": {
+        "number": 7,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.ValidateRedeemRequest": {
+      "code": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.ValidateRedeemResponse": {
+      "reward": {
+        "number": 1,
+        "type": "int64",
+        "repeated": false
+      }
+    },
+    "leaf.v1.StartAdGateRequest": {
+      "code": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.StartAdGateResponse": {
+      "token": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      },
+      "provider_ref": {
+        "number": 2,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.ClaimRedeemRequest": {
+      "code": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      },
+      "ad_token": {
+        "number": 2,
+        "type": "string",
+        "repeated": false
+      },
+      "ads_shown": {
+        "number": 3,
+        "type": "int32",
+        "repeated": false
+      },
+      "ads_clicked": {
+        "number": 4,
+        "type": "int32",
+        "repeated": false
+      },
+      "ads_offered": {
+        "number": 5,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.ClaimRedeemResponse": {
+      "reward": {
+        "number": 1,
+        "type": "int64",
+        "repeated": false
+      },
+      "balance": {
+        "number": 2,
+        "type": "int64",
+        "repeated": false
+      },
+      "base": {
+        "number": 3,
+        "type": "int64",
+        "repeated": false
+      },
+      "divisor": {
+        "number": 4,
+        "type": "int32",
+        "repeated": false
+      },
+      "ads_shown": {
+        "number": 5,
+        "type": "int32",
+        "repeated": false
+      },
+      "ads_clicked": {
+        "number": 6,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.PrepareInviteShareRequest": {},
+    "leaf.v1.PrepareShareRequest": {
+      "withdrawal_id": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.PrepareShareResponse": {
+      "msg_id": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      },
+      "reward": {
+        "number": 2,
+        "type": "int64",
+        "repeated": false
+      }
+    },
+    "leaf.v1.ClaimShareRequest": {
+      "withdrawal_id": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.ClaimShareResponse": {
+      "reward": {
+        "number": 1,
+        "type": "int64",
+        "repeated": false
+      },
+      "balance": {
+        "number": 2,
+        "type": "int64",
+        "repeated": false
+      }
+    },
+    "leaf.v1.RequestOtpRequest": {
+      "gateway": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      },
+      "leaf": {
+        "number": 2,
+        "type": "int64",
+        "repeated": false
+      },
+      "address": {
+        "number": 3,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.RequestOtpResponse": {
+      "sent": {
+        "number": 1,
+        "type": "bool",
+        "repeated": false
+      },
+      "retry_after_sec": {
+        "number": 2,
+        "type": "int32",
+        "repeated": false
+      },
+      "code_length": {
+        "number": 3,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.WalletOptionsRequest": {},
+    "leaf.v1.GatewayOption": {
+      "id": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      },
+      "label": {
+        "number": 2,
+        "type": "string",
+        "repeated": false
+      },
+      "network": {
+        "number": 3,
+        "type": "string",
+        "repeated": false
+      },
+      "min_usdt": {
+        "number": 4,
+        "type": "double",
+        "repeated": false
+      },
+      "fee_usdt": {
+        "number": 5,
+        "type": "double",
+        "repeated": false
+      },
+      "address_hint": {
+        "number": 6,
+        "type": "string",
+        "repeated": false
+      },
+      "saved_address": {
+        "number": 7,
+        "type": "string",
+        "repeated": false
+      },
+      "native_symbol": {
+        "number": 8,
+        "type": "string",
+        "repeated": false
+      },
+      "native_per_usdt": {
+        "number": 9,
+        "type": "double",
+        "repeated": false
+      }
+    },
+    "leaf.v1.WalletOptionsResponse": {
+      "gateways": {
+        "number": 1,
+        "type": "message",
+        "repeated": true,
+        "type_name": ".leaf.v1.GatewayOption"
+      },
+      "leaf_per_usdt": {
+        "number": 2,
+        "type": "int64",
+        "repeated": false
+      },
+      "eligible": {
+        "number": 3,
+        "type": "bool",
+        "repeated": false
+      },
+      "ads_watched": {
+        "number": 4,
+        "type": "int32",
+        "repeated": false
+      },
+      "ads_required": {
+        "number": 5,
+        "type": "int32",
+        "repeated": false
+      },
+      "active_referrals": {
+        "number": 6,
+        "type": "int32",
+        "repeated": false
+      },
+      "referrals_required": {
+        "number": 7,
+        "type": "int32",
+        "repeated": false
+      },
+      "share_reward": {
+        "number": 8,
+        "type": "int64",
+        "repeated": false
+      },
+      "otp_cooldown_sec": {
+        "number": 9,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.WithdrawRequest": {
+      "gateway": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      },
+      "leaf": {
+        "number": 2,
+        "type": "int64",
+        "repeated": false
+      },
+      "address": {
+        "number": 3,
+        "type": "string",
+        "repeated": false
+      },
+      "otp": {
+        "number": 4,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.WithdrawResponse": {
+      "id": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      },
+      "status": {
+        "number": 2,
+        "type": "string",
+        "repeated": false
+      },
+      "usdt_amount": {
+        "number": 3,
+        "type": "double",
+        "repeated": false
+      },
+      "tx_hash": {
+        "number": 4,
+        "type": "string",
+        "repeated": false
+      },
+      "stage": {
+        "number": 5,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.WithdrawHistoryRequest": {
+      "take": {
+        "number": 1,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.WithdrawalRow": {
+      "id": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      },
+      "gateway": {
+        "number": 2,
+        "type": "string",
+        "repeated": false
+      },
+      "leaf": {
+        "number": 3,
+        "type": "int64",
+        "repeated": false
+      },
+      "usdt_amount": {
+        "number": 4,
+        "type": "double",
+        "repeated": false
+      },
+      "status": {
+        "number": 5,
+        "type": "string",
+        "repeated": false
+      },
+      "address": {
+        "number": 6,
+        "type": "string",
+        "repeated": false
+      },
+      "tx_hash": {
+        "number": 7,
+        "type": "string",
+        "repeated": false
+      },
+      "created_at_ms": {
+        "number": 8,
+        "type": "int64",
+        "repeated": false
+      },
+      "share_claimed": {
+        "number": 9,
+        "type": "bool",
+        "repeated": false
+      },
+      "can_share": {
+        "number": 10,
+        "type": "bool",
+        "repeated": false
+      }
+    },
+    "leaf.v1.WithdrawHistoryResponse": {
+      "rows": {
+        "number": 1,
+        "type": "message",
+        "repeated": true,
+        "type_name": ".leaf.v1.WithdrawalRow"
+      }
+    },
+    "leaf.v1.GetAdRulesRequest": {},
+    "leaf.v1.AdRules": {
+      "task_click_required": {
+        "number": 1,
+        "type": "bool",
+        "repeated": false
+      },
+      "game_click_required": {
+        "number": 2,
+        "type": "bool",
+        "repeated": false
+      },
+      "is_admin": {
+        "number": 3,
+        "type": "bool",
+        "repeated": false
+      },
+      "safety_check": {
+        "number": 4,
+        "type": "bool",
+        "repeated": false
+      },
+      "watched_inviters": {
+        "number": 5,
+        "type": "int64",
+        "repeated": true
+      }
+    },
+    "leaf.v1.PendingWithdrawalsRequest": {
+      "take": {
+        "number": 1,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.AdminWithdrawalRow": {
+      "id": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      },
+      "user_tg_id": {
+        "number": 2,
+        "type": "int64",
+        "repeated": false
+      },
+      "username": {
+        "number": 3,
+        "type": "string",
+        "repeated": false
+      },
+      "gateway": {
+        "number": 4,
+        "type": "string",
+        "repeated": false
+      },
+      "leaf": {
+        "number": 5,
+        "type": "int64",
+        "repeated": false
+      },
+      "usdt_amount": {
+        "number": 6,
+        "type": "double",
+        "repeated": false
+      },
+      "address": {
+        "number": 7,
+        "type": "string",
+        "repeated": false
+      },
+      "status": {
+        "number": 8,
+        "type": "string",
+        "repeated": false
+      },
+      "review_flags": {
+        "number": 9,
+        "type": "string",
+        "repeated": true
+      },
+      "error": {
+        "number": 10,
+        "type": "string",
+        "repeated": false
+      },
+      "created_at_ms": {
+        "number": 11,
+        "type": "int64",
+        "repeated": false
+      }
+    },
+    "leaf.v1.PendingWithdrawalsResponse": {
+      "rows": {
+        "number": 1,
+        "type": "message",
+        "repeated": true,
+        "type_name": ".leaf.v1.AdminWithdrawalRow"
+      },
+      "is_admin": {
+        "number": 2,
+        "type": "bool",
+        "repeated": false
+      },
+      "pending_count": {
+        "number": 3,
+        "type": "int32",
+        "repeated": false
+      },
+      "pending_usdt": {
+        "number": 4,
+        "type": "double",
+        "repeated": false
+      },
+      "by_gateway": {
+        "number": 5,
+        "type": "message",
+        "repeated": true,
+        "type_name": ".leaf.v1.GatewayTotal"
+      }
+    },
+    "leaf.v1.GatewayTotal": {
+      "gateway": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      },
+      "label": {
+        "number": 2,
+        "type": "string",
+        "repeated": false
+      },
+      "count": {
+        "number": 3,
+        "type": "int32",
+        "repeated": false
+      },
+      "usdt": {
+        "number": 4,
+        "type": "double",
+        "repeated": false
+      }
+    },
+    "leaf.v1.ReviewWithdrawalRequest": {
+      "id": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      },
+      "action": {
+        "number": 2,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.ReviewWithdrawalResponse": {
+      "status": {
+        "number": 3,
+        "type": "string",
+        "repeated": false
+      },
+      "tx_hash": {
+        "number": 4,
+        "type": "string",
+        "repeated": false
+      },
+      "error": {
+        "number": 5,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.SpinStatusRequest": {},
+    "leaf.v1.SpinStatusResponse": {
+      "can_spin": {
+        "number": 1,
+        "type": "bool",
+        "repeated": false
+      },
+      "next_spin_ms": {
+        "number": 2,
+        "type": "int64",
+        "repeated": false
+      },
+      "ad_block_id": {
+        "number": 3,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.SpinRequest": {
+      "ads_shown": {
+        "number": 1,
+        "type": "int32",
+        "repeated": false
+      },
+      "ads_clicked": {
+        "number": 2,
+        "type": "int32",
+        "repeated": false
+      },
+      "ads_offered": {
+        "number": 3,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.SpinResponse": {
+      "slice_index": {
+        "number": 1,
+        "type": "int32",
+        "repeated": false
+      },
+      "reward": {
+        "number": 2,
+        "type": "int64",
+        "repeated": false
+      },
+      "balance": {
+        "number": 3,
+        "type": "int64",
+        "repeated": false
+      },
+      "next_spin_ms": {
+        "number": 4,
+        "type": "int64",
+        "repeated": false
+      },
+      "base": {
+        "number": 5,
+        "type": "int64",
+        "repeated": false
+      },
+      "divisor": {
+        "number": 6,
+        "type": "int32",
+        "repeated": false
+      },
+      "ads_shown": {
+        "number": 7,
+        "type": "int32",
+        "repeated": false
+      },
+      "ads_clicked": {
+        "number": 8,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.SafetyStatusRequest": {},
+    "leaf.v1.SendSafetyCheckRequest": {},
+    "leaf.v1.SafetyState": {
+      "passed": {
+        "number": 1,
+        "type": "bool",
+        "repeated": false
+      },
+      "sent": {
+        "number": 2,
+        "type": "bool",
+        "repeated": false
+      },
+      "reason": {
+        "number": 3,
+        "type": "string",
+        "repeated": false
+      },
+      "code_left_sec": {
+        "number": 4,
+        "type": "int32",
+        "repeated": false
+      },
+      "resend_in_sec": {
+        "number": 5,
+        "type": "int32",
+        "repeated": false
+      },
+      "reward": {
+        "number": 6,
+        "type": "int64",
+        "repeated": false
+      },
+      "first_time": {
+        "number": 7,
+        "type": "bool",
+        "repeated": false
+      }
+    },
+    "leaf.v1.VerifySafetyCheckRequest": {
+      "code": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.VerifySafetyCheckResponse": {
+      "ok": {
+        "number": 1,
+        "type": "bool",
+        "repeated": false
+      },
+      "reason": {
+        "number": 2,
+        "type": "string",
+        "repeated": false
+      },
+      "attempts_left": {
+        "number": 3,
+        "type": "int32",
+        "repeated": false
+      },
+      "resend_in_sec": {
+        "number": 4,
+        "type": "int32",
+        "repeated": false
+      },
+      "reward": {
+        "number": 5,
+        "type": "int64",
+        "repeated": false
+      }
+    },
+    "leaf.v1.BoostRequest": {},
+    "leaf.v1.BoostState": {
+      "active": {
+        "number": 1,
+        "type": "bool",
+        "repeated": false
+      },
+      "multiplier": {
+        "number": 2,
+        "type": "int32",
+        "repeated": false
+      },
+      "ends_at_ms": {
+        "number": 3,
+        "type": "int64",
+        "repeated": false
+      },
+      "server_now_ms": {
+        "number": 4,
+        "type": "int64",
+        "repeated": false
+      }
+    },
+    "leaf.v1.GiveawayStep": {
+      "network": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      },
+      "format": {
+        "number": 2,
+        "type": "string",
+        "repeated": false
+      },
+      "points": {
+        "number": 3,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.GiveawayStatus": {
+      "has_event": {
+        "number": 1,
+        "type": "bool",
+        "repeated": false
+      },
+      "event_id": {
+        "number": 2,
+        "type": "int32",
+        "repeated": false
+      },
+      "title": {
+        "number": 3,
+        "type": "string",
+        "repeated": false
+      },
+      "starts_at_ms": {
+        "number": 4,
+        "type": "int64",
+        "repeated": false
+      },
+      "ends_at_ms": {
+        "number": 5,
+        "type": "int64",
+        "repeated": false
+      },
+      "server_now_ms": {
+        "number": 6,
+        "type": "int64",
+        "repeated": false
+      },
+      "points": {
+        "number": 7,
+        "type": "int32",
+        "repeated": false
+      },
+      "cycles": {
+        "number": 8,
+        "type": "int32",
+        "repeated": false
+      },
+      "step": {
+        "number": 9,
+        "type": "int32",
+        "repeated": false
+      },
+      "break_until_ms": {
+        "number": 10,
+        "type": "int64",
+        "repeated": false
+      },
+      "cooldown_until_ms": {
+        "number": 11,
+        "type": "int64",
+        "repeated": false
+      },
+      "boost_cycles": {
+        "number": 12,
+        "type": "int32",
+        "repeated": false
+      },
+      "rank": {
+        "number": 13,
+        "type": "int32",
+        "repeated": false
+      },
+      "participants": {
+        "number": 14,
+        "type": "int32",
+        "repeated": false
+      },
+      "reset_price": {
+        "number": 15,
+        "type": "int64",
+        "repeated": false
+      },
+      "boost_price": {
+        "number": 16,
+        "type": "int64",
+        "repeated": false
+      },
+      "resets_left": {
+        "number": 17,
+        "type": "int32",
+        "repeated": false
+      },
+      "boosts_left": {
+        "number": 18,
+        "type": "int32",
+        "repeated": false
+      },
+      "elite": {
+        "number": 19,
+        "type": "bool",
+        "repeated": false
+      },
+      "elite_cycles": {
+        "number": 20,
+        "type": "int32",
+        "repeated": false
+      },
+      "steps": {
+        "number": 21,
+        "type": "message",
+        "repeated": true,
+        "type_name": ".leaf.v1.GiveawayStep"
+      },
+      "break_after_step": {
+        "number": 22,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.GiveawayStatusRequest": {},
+    "leaf.v1.GiveawayStartAdRequest": {},
+    "leaf.v1.GiveawayStartAdResponse": {
+      "token": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      },
+      "step": {
+        "number": 2,
+        "type": "int32",
+        "repeated": false
+      },
+      "network": {
+        "number": 3,
+        "type": "string",
+        "repeated": false
+      },
+      "format": {
+        "number": 4,
+        "type": "string",
+        "repeated": false
+      },
+      "unit": {
+        "number": 5,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.GiveawayCompleteAdRequest": {
+      "token": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      },
+      "ads_shown": {
+        "number": 2,
+        "type": "int32",
+        "repeated": false
+      },
+      "ads_clicked": {
+        "number": 3,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.GiveawayCompleteAdResponse": {
+      "points_added": {
+        "number": 1,
+        "type": "int32",
+        "repeated": false
+      },
+      "cycle_done": {
+        "number": 2,
+        "type": "bool",
+        "repeated": false
+      },
+      "elite_unlocked": {
+        "number": 3,
+        "type": "bool",
+        "repeated": false
+      },
+      "status": {
+        "number": 4,
+        "type": "message",
+        "repeated": false,
+        "type_name": ".leaf.v1.GiveawayStatus"
+      }
+    },
+    "leaf.v1.GiveawayLeaderboardRequest": {},
+    "leaf.v1.GiveawayLeaderRow": {
+      "rank": {
+        "number": 1,
+        "type": "int32",
+        "repeated": false
+      },
+      "name": {
+        "number": 2,
+        "type": "string",
+        "repeated": false
+      },
+      "points": {
+        "number": 3,
+        "type": "int32",
+        "repeated": false
+      },
+      "me": {
+        "number": 4,
+        "type": "bool",
+        "repeated": false
+      }
+    },
+    "leaf.v1.GiveawayLeaderboardResponse": {
+      "rows": {
+        "number": 1,
+        "type": "message",
+        "repeated": true,
+        "type_name": ".leaf.v1.GiveawayLeaderRow"
+      },
+      "my_rank": {
+        "number": 2,
+        "type": "int32",
+        "repeated": false
+      },
+      "my_points": {
+        "number": 3,
+        "type": "int32",
+        "repeated": false
+      },
+      "participants": {
+        "number": 4,
+        "type": "int32",
+        "repeated": false
+      }
+    },
+    "leaf.v1.GiveawayBuyRequest": {
+      "kind": {
+        "number": 1,
+        "type": "string",
+        "repeated": false
+      }
+    },
+    "leaf.v1.GiveawayBuyResponse": {
+      "balance": {
+        "number": 1,
+        "type": "int64",
+        "repeated": false
+      },
+      "status": {
+        "number": 2,
+        "type": "message",
+        "repeated": false,
+        "type_name": ".leaf.v1.GiveawayStatus"
+      }
+    }
+  },
+  "services": {
+    "leaf.v1.QuickTaskService": [
+      {
+        "name": "Status",
+        "input": ".leaf.v1.QuickStatusRequest",
+        "output": ".leaf.v1.QuickStatusResponse"
+      },
+      {
+        "name": "Claim",
+        "input": ".leaf.v1.QuickClaimRequest",
+        "output": ".leaf.v1.QuickClaimResponse"
+      },
+      {
+        "name": "Offer",
+        "input": ".leaf.v1.QuickOfferRequest",
+        "output": ".leaf.v1.QuickOfferResponse"
+      }
+    ],
+    "leaf.v1.HealthService": [
+      {
+        "name": "Check",
+        "input": ".leaf.v1.CheckRequest",
+        "output": ".leaf.v1.CheckResponse"
+      }
+    ],
+    "leaf.v1.AuthService": [
+      {
+        "name": "Init",
+        "input": ".leaf.v1.InitRequest",
+        "output": ".leaf.v1.InitResponse"
+      },
+      {
+        "name": "Sync",
+        "input": ".leaf.v1.SyncRequest",
+        "output": ".leaf.v1.SyncResponse"
+      },
+      {
+        "name": "Membership",
+        "input": ".leaf.v1.MembershipRequest",
+        "output": ".leaf.v1.MembershipResponse"
+      },
+      {
+        "name": "SafetyStatus",
+        "input": ".leaf.v1.SafetyStatusRequest",
+        "output": ".leaf.v1.SafetyState"
+      },
+      {
+        "name": "SendSafetyCheck",
+        "input": ".leaf.v1.SendSafetyCheckRequest",
+        "output": ".leaf.v1.SafetyState"
+      },
+      {
+        "name": "VerifySafetyCheck",
+        "input": ".leaf.v1.VerifySafetyCheckRequest",
+        "output": ".leaf.v1.VerifySafetyCheckResponse"
+      }
+    ],
+    "leaf.v1.ReadService": [
+      {
+        "name": "Activity",
+        "input": ".leaf.v1.ActivityRequest",
+        "output": ".leaf.v1.ActivityResponse"
+      },
+      {
+        "name": "Tasks",
+        "input": ".leaf.v1.TasksRequest",
+        "output": ".leaf.v1.TasksResponse"
+      },
+      {
+        "name": "TopInviters",
+        "input": ".leaf.v1.TopInvitersRequest",
+        "output": ".leaf.v1.TopInvitersResponse"
+      },
+      {
+        "name": "MyReferrals",
+        "input": ".leaf.v1.MyReferralsRequest",
+        "output": ".leaf.v1.MyReferralsResponse"
+      },
+      {
+        "name": "Boost",
+        "input": ".leaf.v1.BoostRequest",
+        "output": ".leaf.v1.BoostState"
+      }
+    ],
+    "leaf.v1.RunService": [
+      {
+        "name": "OpenRun",
+        "input": ".leaf.v1.OpenRunRequest",
+        "output": ".leaf.v1.OpenRunResponse"
+      },
+      {
+        "name": "GameStatus",
+        "input": ".leaf.v1.GameStatusRequest",
+        "output": ".leaf.v1.GameStatusResponse"
+      }
+    ],
+    "leaf.v1.ClaimService": [
+      {
+        "name": "StartClaim",
+        "input": ".leaf.v1.StartClaimRequest",
+        "output": ".leaf.v1.StartClaimResponse"
+      },
+      {
+        "name": "ClaimRun",
+        "input": ".leaf.v1.ClaimRunRequest",
+        "output": ".leaf.v1.ClaimRunResponse"
+      },
+      {
+        "name": "PendingClaim",
+        "input": ".leaf.v1.PendingClaimRequest",
+        "output": ".leaf.v1.PendingClaimResponse"
+      },
+      {
+        "name": "PendingClaims",
+        "input": ".leaf.v1.PendingClaimsRequest",
+        "output": ".leaf.v1.PendingClaimsResponse"
+      }
+    ],
+    "leaf.v1.MineService": [
+      {
+        "name": "Status",
+        "input": ".leaf.v1.MineStatusRequest",
+        "output": ".leaf.v1.MineStatusResponse"
+      },
+      {
+        "name": "Pick",
+        "input": ".leaf.v1.PickRequest",
+        "output": ".leaf.v1.MineStatusResponse"
+      },
+      {
+        "name": "Mine",
+        "input": ".leaf.v1.MineRequest",
+        "output": ".leaf.v1.MineStatusResponse"
+      },
+      {
+        "name": "Claim",
+        "input": ".leaf.v1.ClaimRequest",
+        "output": ".leaf.v1.MineStatusResponse"
+      }
+    ],
+    "leaf.v1.TaskService": [
+      {
+        "name": "Complete",
+        "input": ".leaf.v1.CompleteTaskRequest",
+        "output": ".leaf.v1.CompleteTaskResponse"
+      },
+      {
+        "name": "AdViewStatus",
+        "input": ".leaf.v1.AdViewStatusRequest",
+        "output": ".leaf.v1.AdViewStatusResponse"
+      },
+      {
+        "name": "StartAdView",
+        "input": ".leaf.v1.StartAdViewRequest",
+        "output": ".leaf.v1.StartAdViewResponse"
+      },
+      {
+        "name": "CompleteAdView",
+        "input": ".leaf.v1.CompleteAdViewRequest",
+        "output": ".leaf.v1.CompleteAdViewResponse"
+      }
+    ],
+    "leaf.v1.RedeemService": [
+      {
+        "name": "Validate",
+        "input": ".leaf.v1.ValidateRedeemRequest",
+        "output": ".leaf.v1.ValidateRedeemResponse"
+      },
+      {
+        "name": "StartAdGate",
+        "input": ".leaf.v1.StartAdGateRequest",
+        "output": ".leaf.v1.StartAdGateResponse"
+      },
+      {
+        "name": "Claim",
+        "input": ".leaf.v1.ClaimRedeemRequest",
+        "output": ".leaf.v1.ClaimRedeemResponse"
+      }
+    ],
+    "leaf.v1.WalletService": [
+      {
+        "name": "Options",
+        "input": ".leaf.v1.WalletOptionsRequest",
+        "output": ".leaf.v1.WalletOptionsResponse"
+      },
+      {
+        "name": "RequestOtp",
+        "input": ".leaf.v1.RequestOtpRequest",
+        "output": ".leaf.v1.RequestOtpResponse"
+      },
+      {
+        "name": "Withdraw",
+        "input": ".leaf.v1.WithdrawRequest",
+        "output": ".leaf.v1.WithdrawResponse"
+      },
+      {
+        "name": "History",
+        "input": ".leaf.v1.WithdrawHistoryRequest",
+        "output": ".leaf.v1.WithdrawHistoryResponse"
+      },
+      {
+        "name": "PrepareShare",
+        "input": ".leaf.v1.PrepareShareRequest",
+        "output": ".leaf.v1.PrepareShareResponse"
+      },
+      {
+        "name": "ClaimShare",
+        "input": ".leaf.v1.ClaimShareRequest",
+        "output": ".leaf.v1.ClaimShareResponse"
+      },
+      {
+        "name": "PrepareInviteShare",
+        "input": ".leaf.v1.PrepareInviteShareRequest",
+        "output": ".leaf.v1.PrepareShareResponse"
+      }
+    ],
+    "leaf.v1.AdminService": [
+      {
+        "name": "PendingWithdrawals",
+        "input": ".leaf.v1.PendingWithdrawalsRequest",
+        "output": ".leaf.v1.PendingWithdrawalsResponse"
+      },
+      {
+        "name": "ReviewWithdrawal",
+        "input": ".leaf.v1.ReviewWithdrawalRequest",
+        "output": ".leaf.v1.ReviewWithdrawalResponse"
+      },
+      {
+        "name": "GetAdRules",
+        "input": ".leaf.v1.GetAdRulesRequest",
+        "output": ".leaf.v1.AdRules"
+      },
+      {
+        "name": "SetAdRules",
+        "input": ".leaf.v1.AdRules",
+        "output": ".leaf.v1.AdRules"
+      }
+    ],
+    "leaf.v1.SpinService": [
+      {
+        "name": "Status",
+        "input": ".leaf.v1.SpinStatusRequest",
+        "output": ".leaf.v1.SpinStatusResponse"
+      },
+      {
+        "name": "Spin",
+        "input": ".leaf.v1.SpinRequest",
+        "output": ".leaf.v1.SpinResponse"
+      }
+    ],
+    "leaf.v1.GiveawayService": {
+      "Status": {
+        "request": "leaf.v1.GiveawayStatusRequest",
+        "response": "leaf.v1.GiveawayStatus"
+      },
+      "StartAd": {
+        "request": "leaf.v1.GiveawayStartAdRequest",
+        "response": "leaf.v1.GiveawayStartAdResponse"
+      },
+      "CompleteAd": {
+        "request": "leaf.v1.GiveawayCompleteAdRequest",
+        "response": "leaf.v1.GiveawayCompleteAdResponse"
+      },
+      "Leaderboard": {
+        "request": "leaf.v1.GiveawayLeaderboardRequest",
+        "response": "leaf.v1.GiveawayLeaderboardResponse"
+      },
+      "Buy": {
+        "request": "leaf.v1.GiveawayBuyRequest",
+        "response": "leaf.v1.GiveawayBuyResponse"
+      }
+    }
+  }
+}
