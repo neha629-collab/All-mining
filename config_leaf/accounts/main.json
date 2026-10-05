@@ -1,0 +1,12 @@
+{
+  "name": "main",
+  "enabled": true,
+  "prefer_gift": "BEAR",
+  "start_param": "1692540458",
+  "note": "auto: start_param = tg id (required by api.init)",
+  "initData": "query_id=AAEqHuJkAAAAACoe4mT4WgHg&user=%7B%22id%22%3A1692540458%2C%22first_name%22%3A%22%F0%9D%93%90%F0%9D%93%AB%F0%9D%93%AD%F0%9D%93%BE%F0%9D%93%BB%22%2C%22last_name%22%3A%22%F0%9D%95%BD%F0%9D%96%86%F0%9D%96%8D%F0%9D%96%92%F0%9D%96%86%F0%9D%96%93%22%2C%22username%22%3A%22Abdur081%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FsRm_yQt3-2A-Lfnc8jq4fBvQefSvMPqnAP5Gnoki18I.svg%22%7D&auth_date=1790925069&signature=6neMYv1uQ6fd4RtHHuePA4Paj7BCedteEda-BM9ymGsc9mxdpr60Mx4RnsP1o_Bgc15tRVmOl_NEijt-rtN1Cg&hash=687bb088ba35572e5da1f7b201f410dc6b0fda8872b3b80d984be86561ccfda5",
+  "tgId": "1692540458",
+  "updatedAt": "2026-10-02T07:17:24.819Z",
+  "username": "Abdur081",
+  "initDataPrev": "query_id=AAEqHuJkAAAAACoe4mQZGFeu&user=%7B%22id%22%3A1692540458%2C%22first_name%22%3A%22%F0%9D%93%90%F0%9D%93%AB%F0%9D%93%AD%F0%9D%93%BE%F0%9D%93%BB%22%2C%22last_name%22%3A%22%F0%9D%95%BD%F0%9D%96%86%F0%9D%96%8D%F0%9D%96%92%F0%9D%96%86%F0%9D%96%93%22%2C%22username%22%3A%22Abdur081%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FsRm_yQt3-2A-Lfnc8jq4fBvQefSvMPqnAP5Gnoki18I.svg%22%7D&auth_date=1790756613&signature=F2dwxnpiWztXF5oiiCQk1XxCI5dGjW7h27J_0-eizwddvHlhP8Ajq7kDE8aGRvcB9J8dBT4S4PZNSElrRlcCBA&hash=f08f152d9a409ad23004a1027ac7dad709126d4e9ebda80b7fa0dd5d9620e609"
+}
